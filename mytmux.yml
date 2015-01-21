@@ -1,0 +1,58 @@
+# ~/.tmuxinator/M.yml
+
+name: M
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# powerline-daemon -q
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: rbenv versions
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+    - shells:
+        layout: main-horizontal
+        panes:
+            - cd /usr/local/Cellar
+            - cd /usr/local/bin
+            - cd ~/
+    - zshrc:
+        layout: main-vertical
+        panes:
+            - vim ~/.dotfiles/zshrc
+            - vim ~/.oh-my-zsh/oh-my-zsh.sh
+            - vim ~/.dotfiles/aliases
+    - vimrc:
+        layout: main-vertical
+        panes:
+            - vim ~/.vimrc
+            - vim ~/.vimrc.local
+            -
+    - slate:
+        layout: main-vertical
+        panes:
+            - vim ~/.slate
+            -
+    - tmux:
+        layout: main-vertical
+        panes:
+            - vim ~/.tmux.conf
+            - vim ~/.tmux.conf.local
+            - vim ~/.tmuxinator/M.yml
+    - airport:
+        layout: main-horizontal
+        panes:
+            - airport -I
+            - ifconfig
+            - 
+
+

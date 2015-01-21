@@ -1,0 +1,11 @@
+[user]
+	name = deielmo
+	email = dei.elmo@gmail.com
+[color]
+	ui = auto
+[credential]
+	helper = osxkeychain
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f

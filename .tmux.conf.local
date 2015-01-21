@@ -1,0 +1,57 @@
+ Allows for faster key repetition
+ set -s escape-time 0
+
+ # C-b is not acceptable -- Vim uses it
+ set -g prefix C-a
+ unbind-key C-b
+ bind-key a send-prefix
+
+ bind-key C-a next-window
+
+ # act like vim
+ setw -g mode-keys vi
+ bind h select-pane -L
+ bind j select-pane -D
+ bind k select-pane -U
+ bind l select-pane -R
+
+ # Kill windows and panes faster, by rebinding the confirmation key
+ bind-key & kill-window
+ bind-key x kill-pane
+
+ # Renumber windows sequentially after closing any of them
+ set -g renumber-windows on
+
+ # set window and pane index to 1 (0 by default)
+ set-option -g base-index 1
+ setw -g pane-base-index 1
+
+ # increase scrollback lines
+ set -g history-limit 10000
+
+# Statusline/Powerline
+# powerline-daemon -q
+# source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
+
+# clock
+set-window-option -g clock-mode-colour green 
+
+# set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+if [[ -z $TMUX ]]; then
+    # Attempt to discover a detached session and attach it, else create a new session
+    CURRENT_USER=$(whoami)
+    if tmux has-session -t $CURRENT_USER 2>/dev/null; then
+    tmux -2 attach-session -t $CURRENT_USER
+    else
+    tmux -2 new-session -s $CURRENT_USER
+    fi
+else
+    # If inside tmux session then print MOTD
+    MOTD=/etc/motd.tcl
+    if [ -f $MOTD ]; then
+    $MOTD
+    fi
+fi
+
+
